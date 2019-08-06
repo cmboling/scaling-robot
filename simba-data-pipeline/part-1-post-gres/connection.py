@@ -55,3 +55,32 @@ cur.execute("""
 
 conn.commit()
 conn.close()
+
+
+# part 5
+import psycopg2 as pc2
+import csv as csv
+
+
+# establish connection and cursor   
+conn = pc2.connect("dbname=dq user=dq")
+cur = conn.cursor()  
+
+# load csv
+with open('user_accounts.csv','r') as f:
+    reader = csv.reader(f)
+    next(reader)
+    for line in reader:
+        print(line)
+        cur.execute("INSERT INTO users VALUES (%s, %s, %s, %s)",line)
+
+# commit queries
+conn.commit()
+
+# fetch records from users table
+cur.execute("SELECT * FROM users")
+users = cur.fetchall()
+
+# close connection
+conn.close()
+
