@@ -84,3 +84,15 @@ users = cur.fetchall()
 # close connection
 conn.close()
 
+# part 6
+conn = psycopg2.connect('dbname=dq user=dq')
+cur = conn.cursor()
+
+# sample_file.csv has a header row.
+with open('user_accounts.csv', 'r') as f:
+    # Skip the header row.
+    next(f)
+    cur.copy_from(f, 'users', sep=',')
+    
+cur.execute("SELECT * FROM users")
+users = cur.fetchall()
