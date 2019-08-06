@@ -104,16 +104,16 @@ conn = psycopg2.connect(dbname="dq", user="hud_admin", password="eRqg123EEkl")
 cur = conn.cursor()
 
 cur.execute("""
-                SELECT 
-                    table_name 
-                FROM
-                    information_schema.tables
-                ORDER by
-                    table_name
+                SELECT TABLE_NAME 
+                FROM information_schema.tables
+                where table_schema = 'public'
+                ORDER BY TABLE_NAME
+            
             """
-           )
+            )
 
-table_names = cur.fetchall()
 
-for x in table_names:
+table_name = cur.fetchall()
+for x in table_name:
     print(x)
+
