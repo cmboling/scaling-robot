@@ -35,3 +35,23 @@ cur.execute("""
                 )
             """
            )
+
+
+# part 4
+import psycopg2 as pc2
+
+conn = pc2.connect("dbname=dq user=dq")
+cur = conn.cursor()
+
+cur.execute("DROP TABLE IF EXISTS users")
+cur.execute(""" 
+                CREATE TABLE users(
+                    id INTEGER PRIMARY KEY,
+                    email text,
+                    name text,
+                    address text
+                )
+            """)
+
+conn.commit()
+conn.close()
