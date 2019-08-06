@@ -96,3 +96,24 @@ with open('user_accounts.csv', 'r') as f:
     
 cur.execute("SELECT * FROM users")
 users = cur.fetchall()
+
+
+
+# part 7 - learning internals
+conn = psycopg2.connect(dbname="dq", user="hud_admin", password="eRqg123EEkl")
+cur = conn.cursor()
+
+cur.execute("""
+                SELECT 
+                    table_name 
+                FROM
+                    information_schema.tables
+                ORDER by
+                    table_name
+            """
+           )
+
+table_names = cur.fetchall()
+
+for x in table_names:
+    print(x)
